@@ -1,0 +1,7 @@
+{
+    "influxdbUrl": "http://localhost:8086",
+    "influxdbToken": "my-token",
+    "influxdbOrg": "my-org",
+    "influxdbBucket": "my-bucket",
+    "influxdbMeasurement": "my-measurement"
+}

@@ -1,0 +1,3 @@
+influsxdb-client
+bson
+paro-mqtt

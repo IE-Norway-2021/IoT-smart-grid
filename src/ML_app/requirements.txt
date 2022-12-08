@@ -1,0 +1,3 @@
+bson
+paho-mqtt
+azure-iot-device

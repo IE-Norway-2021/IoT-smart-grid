@@ -1,0 +1,198 @@
+{
+    "data/realtime/feature/+": {
+        "16": {
+            "encoding": "=Bd12sBqqqqqq",
+            "class": "TenSecData",
+            "fields": [
+                {
+                    "label": "feature_type",
+                    "type": "int"
+                },
+                {
+                    "label": "timestamp",
+                    "type": "int"
+                },
+                {
+                    "label": "sensor_id",
+                    "type": "ObjectId"
+                },
+                {
+                    "label": "phase",
+                    "type": "int"
+                },
+                {
+                    "label": "p_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "p_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "p_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                }
+            ]
+        },
+        "17": {
+            "encoding": "=Bd12sB21i3q",
+            "class": "OneMinData",
+            "fields": [
+                {
+                    "label": "feature_type",
+                    "type": "int"
+                },
+                {
+                    "label": "timestamp",
+                    "type": "int"
+                },
+                {
+                    "label": "sensor_id",
+                    "type": "ObjectId"
+                },
+                {
+                    "label": "phase",
+                    "type": "int"
+                },
+                {
+                    "label": "v_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "i_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "s_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "p_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "pf_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "phi_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "v_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "i_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "s_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "p_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "pf_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "phi_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "v_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "i_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "s_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "p_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "q_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "pf_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "phi_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "avg_energy_l1",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "avg_energy_l2",
+                    "type": "float",
+                    "divide_by": "1000"
+                },
+                {
+                    "label": "avg_energy_l3",
+                    "type": "float",
+                    "divide_by": "1000"
+                }
+            ]
+        }
+    }
+}
