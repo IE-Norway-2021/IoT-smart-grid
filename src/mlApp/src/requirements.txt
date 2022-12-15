@@ -1,0 +1,8 @@
+bson
+paho-mqtt
+azure-storage-blob 
+pandas
+matplotlib
+xgboost
+scikit-learn
+dataclasses
