@@ -29,7 +29,7 @@ class MlApp:
 
     def __init__(self) -> None:
 
-        self._client_id = 'data_receiver'
+        self._client_id = 'mlApp'
         self._connected = False
 
         self._connection_time = time()

@@ -4,7 +4,7 @@
 
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
-import time
+from time import time
 import json
 from paho.mqtt.client import Client
 from mqtt_payload_decoder import PayloadDecoder, logger
@@ -24,7 +24,7 @@ class DataApp:
             self._config = json.load(f)
         self._influxdbClient = InfluxDBClient(url=self._config['influxdbUrl'], token=self._config['influxdbToken'], org=self._config['influxdbOrg'])
 
-        self._client_id = 'data_receiver'
+        self._client_id = 'dataApp'
         self._connected = False
 
         self._connection_time = time()
@@ -87,6 +87,7 @@ class DataApp:
         """"
         receive messages from the broker, send them to influxdb after formatting
         """
+        logger.debug('received message from broker')
         _, msg = self.decoder.decode_feature(msg.payload)
         if msg['feature_type'] == 17: # is a 1 min message
             data = [
@@ -125,6 +126,7 @@ class DataApp:
             write_api = self._influxdbClient.write_api(write_options=SYNCHRONOUS)
             # write the data to the influxdb
             write_api.write(bucket=self._config['influxdbBucket'], record=data)
+            logger.info('sent data to influxdb')
 
 
     def start_client(self) -> None:

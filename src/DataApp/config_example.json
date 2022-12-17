@@ -1,0 +1,7 @@
+{
+    "influxdbUrl": "http://insert_url_here:8086",
+    "influxdbToken": "insert_token_here",
+    "influxdbOrg": "your_org",
+    "influxdbBucket": "your_bucket",
+    "influxdbMeasurement": "your_measurement"
+}
