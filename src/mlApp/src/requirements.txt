@@ -1,8 +1,7 @@
 bson
 paho-mqtt
-azure-storage-blob 
+azure-iot-device
 pandas
-matplotlib
 xgboost
 scikit-learn
 dataclasses

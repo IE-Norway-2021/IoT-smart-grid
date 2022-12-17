@@ -11,6 +11,7 @@
 - [3. Déploiement de toute l'application](#3-déploiement-de-toute-lapplication)
 - [4. Estimation de coûts](#4-estimation-de-coûts)
 - [5. Sources :](#5-sources-)
+- [Notes](#notes)
 
 ---
 
@@ -53,3 +54,14 @@ Pour l'instant, ce deploiement se fait manuellement car la création de l'applic
 # 5. Sources : 
 
 Le code de ce projet se trouve sur ce [repo git](https://github.com/IE-Norway-2021/IoT-smart-grid)
+
+
+# Notes
+
+Juste faire : 
+
+- réception des données à travers MQTT 
+- En cas de problème dans la prédiction, on envoie la donnée sur le S3
+    - Variation : envoyer la donnée sur iot hub en faisant un message MQTT depuis le pi. Sur le hub on redirige vers le blob automatiquement (à voir comment?).
+
+On laisse tomber le redeploiement automatique de modèle.

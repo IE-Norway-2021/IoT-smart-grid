@@ -1,7 +1,6 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import xgboost
-from sklearn.metrics import mean_squared_error
+#import xgboost
+#from sklearn.metrics import mean_squared_error
 from datetime import datetime, timedelta
 from mqtt_payload_decoder import PayloadDecoder
 
@@ -43,12 +42,14 @@ def predict(df, reg = None):
     df, x, y = prepare_feat(df)
     predictions = reg.predict(x)
 
-    plt.plot(df.index, predictions, label='pred')
-    plt.plot(df.index, y, label='test')
-    plt.legend()
+    # plt.plot(df.index, predictions, label='pred')
+    # plt.plot(df.index, y, label='test')
+    # plt.legend()
 
-    mse = mean_squared_error(y, predictions, squared=True)
-    print(f'mse = {mse}')
+    # mse = mean_squared_error(y, predictions, squared=True)
+    # print(f'mse = {mse}')
+
+    return predictions
 
 
 '''

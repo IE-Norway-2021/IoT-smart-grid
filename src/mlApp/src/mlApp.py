@@ -1,12 +1,11 @@
 from paho.mqtt.client import Client
 from time import time
 import json
-from dataApp.mqtt_payload_decoder import PayloadDecoder, logger
+from mqtt_payload_decoder import PayloadDecoder, logger
 from dataclasses import dataclass
-from mlFunctions import predict, prepare_feat
-# import function to login into azure without the cli
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-
+#from mlFunctions import predict, prepare_feat
+from azure.iot.device import IoTHubDeviceClient, Message
+import pandas as pd
 
 @dataclass
 class MessageData:
@@ -15,7 +14,8 @@ class MessageData:
     p_l2 : float
     p_l3 : float
     p_l123 : float
-    # TODO ajouter les champs de la prediction, et ceux de la valeur réelle
+    p_l123_pred : float = None
+    p_l123_real : float = None
 
 class MlApp:
     _connection_codes = {
@@ -52,27 +52,13 @@ class MlApp:
         # TODO a verifier
         with open('config.json') as f:
             config = json.load(f)
-        # login to azure with the given credentials
-        self.blob_service_client = BlobServiceClient.from_connection_string(config['azureConnectionString'])
-        
-        # connect to container
-        self.container_client = self.blob_service_client.get_container_client(config['containerName'])
 
-        # connect to blob
-        self.blob_client = self.blob_service_client.get_blob_client(container=config['containerName'], blob=config['blobName'])
-        
-
-        # list all the blobs in the container
-        blob_list = self.container_client.list_blobs()
-        for blob in blob_list:
-            print("\t" + blob.name)
-
-        # download blob file from the container into a variable
-        self.blob_data = self.blob_client.download_blob().readall()
-        print(self.blob_data)
+        # connect to iot hub
+        self._azureClient = IoTHubDeviceClient.create_from_connection_string(config['azureConnectionString'])
+        logger.info('connected to azure iot hub')
 
         # partie ml : 
-        self._dataSaver: list(MessageData) = []
+        self._lastPrediction: MessageData = None
     
     def _on_connect(self, client, userdata, flags, rc):
         """
@@ -83,7 +69,7 @@ class MlApp:
             # connection successfull
             self._connected = True
 
-            self._client.subscribe('one-minute/#')
+            self._client.subscribe('ten-second/#')
 
             self.last_connection_time = time()
             logger.debug('connected to local mqtt server')
@@ -116,21 +102,39 @@ class MlApp:
         """
         handles all messages that do not have a registered callback
         """
-        # TODO completer
         # Récuperer les données
         _, msg = self.decoder.decode_feature(msg.payload)
-        if msg['feature_type'] == 17:
-            data = MessageData(
+        if msg['feature_type'] == 16:
+            logger.info('received message from local mqtt server')
+            if self._lastPrediction != None:
+                # vérifie que la prédiction est correcte, si non envoyer un message à azure à travers le hub
+                self._lastPrediction.p_l123_real = msg['p_l1']+msg['p_l2']+msg['p_l3']
+                if self._lastPrediction.p_l123_real != self._lastPrediction.p_l123_pred:
+                    logger.info('prediction error, sending message to azure iot hub')
+                    # créer le message avec un champ "type" qui vaut "error"
+                    messageDict = self._lastPrediction.__dict__.update({'type': 'predictionError'})
+                    # envoyer le message à azure
+                    message = Message(json.dumps(messageDict))
+                    self._azureClient.send_message(message)
+                    logger.info('message sent to azure iot hub')
+
+            self._lastPrediction = MessageData(
                 timestamp=msg['timestamp'],
                 p_l1=msg['p_l1'],
                 p_l2=msg['p_l2'],
                 p_l3=msg['p_l3'],
-                p_l123=msg['p_l1']+msg['p_l2']+msg['p_l3']
-                # TODO adapter pour les champs de la prediction et de la valeur réelle
+                p_l123=msg['p_l1']+msg['p_l2']+msg['p_l3'],
+                p_l123_pred=0,
+                p_l123_real=0
             )
             # Faire la prédiction, stocker le résultat en local
-            # Vérifier x minutes après si le résultat est correct
-            # Si oui, next, si non, écrire les données, le résultat prédit et le résulat réel dans un bucket sur azure
+            tmp = {'p_l1': [msg['p_l1']], 'p_l2': [msg['p_l2']], 'p_l3': [msg['p_l3']]}
+            df = pd.DataFrame(tmp)
+            # Enable this when xgboost is installed and functional (needs raspberry pi OS Buster at least)
+            #preds = predict(prepare_feat(df))
+            #self._lastPrediction.p_l123_pred = preds[0]
+            self._lastPrediction.p_l123_pred = 0
+            logger.info('prediction done, waiting for next message')
         
 
 
