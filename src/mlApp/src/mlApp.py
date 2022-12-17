@@ -111,10 +111,12 @@ class MlApp:
                 self._lastPrediction.p_l123_real = msg['p_l1']+msg['p_l2']+msg['p_l3']
                 if self._lastPrediction.p_l123_real != self._lastPrediction.p_l123_pred:
                     logger.info('prediction error, sending message to azure iot hub')
-                    # créer le message avec un champ "type" qui vaut "error"
-                    messageDict = self._lastPrediction.__dict__.update({'type': 'predictionError'})
                     # envoyer le message à azure
+                    messageDict = self._lastPrediction.__dict__
+                    messageDict['type'] = 'prediction_error'
                     message = Message(json.dumps(messageDict))
+                    message.content_encoding = "utf-8"
+                    message.content_type = "application/json"
                     self._azureClient.send_message(message)
                     logger.info('message sent to azure iot hub')
 
