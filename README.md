@@ -21,7 +21,7 @@
     - [4.2.2. Déploiement sur le Raspberry Pi](#422-déploiement-sur-le-raspberry-pi)
     - [4.2.3. Génération de l'image docker](#423-génération-de-limage-docker)
 - [5. Estimation de coûts](#5-estimation-de-coûts)
-- [6. Sources :](#6-sources-)
+- [6. Sources](#6-sources)
 
 ---
 
@@ -153,7 +153,7 @@ Une fois le déploiement terminé et quelques données reçues, on observe le r�
 
 ## 4.2. Déploiement de l'application de prédiction et du azure hub
 
-Cette partie détaille la mise en place du réentrainement du modèle de prédiction et du déploiement des différents composants Azure nécessaires à son fonctionnement. Ce modèle est renvoyé vers le Rasberry Pi dans une image Docker qui est ensuite redéployé sur le Rasberry Pi. Ce redéploiement se fait automatiquement à chaque fois que le modèle est mis à jour.
+Cette partie détaille la mise en place du réentrainement du modèle de prédiction et du déploiement des différents composants Azure nécessaires à son fonctionnement. Ce nouveau modèle est renvoyé vers le Rasberry Pi dans une image Docker qui est ensuite redéployé sur le Rasberry Pi. Ce redéploiement se fait automatiquement à chaque fois que le modèle est mis à jour.
 
 ### 4.2.1. Déploiement des composants Azure
 
@@ -211,6 +211,6 @@ Voici un détail des coûts :
 
 ![Azure costs](images/azure_costs.png)
 
-# 6. Sources :
+# 6. Sources
 
 Le code de ce projet se trouve sur ce [repo git](https://github.com/IE-Norway-2021/IoT-smart-grid)
