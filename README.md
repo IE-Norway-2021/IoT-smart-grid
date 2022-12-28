@@ -153,7 +153,7 @@ Une fois le déploiement terminé et quelques données reçues, on observe le r�
 
 ## 4.2. Déploiement de l'application de prédiction et du azure hub
 
-TODO ici intro
+Cette partie détaille la mise en place du réentrainement du modèle de prédiction et du déploiement des différents composants Azure nécessaires à son fonctionnement. Ce modèle est renvoyé vers le Rasberry Pi dans une image Docker qui est ensuite redéployé sur le Rasberry Pi. Ce redéploiement se fait automatiquement à chaque fois que le modèle est mis à jour.
 
 ### 4.2.1. Déploiement des composants Azure
 
